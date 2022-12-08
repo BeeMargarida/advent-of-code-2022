@@ -1,14 +1,14 @@
 use std::error::Error;
 use std::fs;
 
-const ABCs: [char; 26] = [
+const ABC: [char; 26] = [
     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
     't', 'u', 'v', 'w', 'x', 'y', 'z',
 ];
 
 fn priority(letter: &char) -> u32 {
     let is_lowercase = letter.is_lowercase();
-    let position = ABCs
+    let position = ABC
         .iter()
         .position(|&x| x == letter.to_ascii_lowercase())
         .unwrap();
@@ -25,10 +25,13 @@ pub fn challenge() -> Result<u32, Box<dyn Error>> {
     let rucksacks: Vec<&str> = input.split("\n").collect();
 
     let mut sum = 0;
-    for r in rucksacks {
-        let (first, second) = r.split_at(r.len() / 2);
-        let common = first.chars().find(|e| second.contains(*e)).unwrap();
-        sum += priority(&common)
+    for r in rucksacks.chunks(3) {
+        let first = r[0];
+        let badge = first
+            .chars()
+            .find(|e| r[1].contains(*e) && r[2].contains(*e))
+            .unwrap();
+        sum += priority(&badge);
     }
 
     Ok(sum)
