@@ -1,6 +1,6 @@
-use std::fs;
-use std::error::Error;
 use std::collections::HashMap;
+use std::error::Error;
+use std::fs;
 
 pub fn challenge() -> Result<u32, Box<dyn Error>> {
     let mut rules = HashMap::new();
