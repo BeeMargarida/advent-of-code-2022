@@ -8,7 +8,6 @@ pub fn challenge() -> Result<u32, Box<dyn Error>> {
     // for each elf
     let split_by_elf: Vec<Vec<&str>> = input
         .split("\n\n")
-        .into_iter()
         .map(|s| s.split("\n").collect())
         .collect();
     let mut sum_by_elf: Vec<u32> = split_by_elf
