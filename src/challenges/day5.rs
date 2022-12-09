@@ -107,7 +107,9 @@ pub fn challenge() -> Result<u32, Box<dyn Error>> {
         let mut moved: Vec<&str> = containers[column_from_index][slice..column_from_length]
             .try_into()
             .unwrap();
-        moved.reverse();
+
+        // NOTE: commented for part2
+        // moved.reverse();
 
         // moves the reversed elements to the another column and removes it
         // from the previous one
