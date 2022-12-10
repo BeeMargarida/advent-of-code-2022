@@ -1,7 +1,7 @@
 use std::error::Error;
 use std::fs;
 
-const PACKET: usize = 4;
+const _PACKET: usize = 4;
 const MESSAGE: usize = 14;
 
 pub fn challenge() -> Result<u32, Box<dyn Error>> {

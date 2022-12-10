@@ -94,7 +94,7 @@ pub fn challenge() -> Result<u32, Box<dyn Error>> {
     let instructions_string: Vec<&str> = parts[1].split("\n").collect();
 
     let mut containers: Vec<Vec<&str>> = initialize(containers_string);
-    let mut instructions = instructions(instructions_string);
+    let instructions = instructions(instructions_string);
 
     for inst in instructions {
         let column_from_index: usize = (inst.from - 1).try_into().unwrap();
