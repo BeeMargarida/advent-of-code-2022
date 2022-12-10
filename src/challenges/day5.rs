@@ -1,5 +1,4 @@
 use regex::Regex;
-use std::collections::LinkedList;
 use std::error::Error;
 use std::fs;
 
