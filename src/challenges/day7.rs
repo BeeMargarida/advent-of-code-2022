@@ -21,7 +21,6 @@ fn filesystem(lines: Vec<&str>) -> HashMap<String, u64> {
                 let parts: Vec<&str> = line.split("$ cd ").collect();
                 let path = parts[1];
 
-                println!("PATH {}", path);
                 match path {
                     "/" => {
                         current = vec!["."];
@@ -44,10 +43,13 @@ fn filesystem(lines: Vec<&str>) -> HashMap<String, u64> {
                 let size = parts[0];
 
                 let size_u64: u64 = FromStr::from_str(size).unwrap();
-                for (i, _) in current.iter().enumerate() {
-                    let key = current[0..i + 1].join("/");
-                    println!("KEY {}", key);
+                dirs.insert(
+                    ".".to_string(),
+                    dirs.get(".").unwrap_or_else(|| &0u64) + size_u64,
+                );
 
+                for (i, _) in current.iter().enumerate() {
+                    let key = current[1..i + 1].join("/");
                     if dirs.contains_key(&key) {
                         let value = dirs.get(&key).unwrap();
                         let total = value + size_u64;
@@ -78,6 +80,17 @@ pub fn challenge() -> Result<u64, Box<dyn Error>> {
             sum += *val;
         }
     }
+
+    let available_space = 70000000 - filesystem.get(".").unwrap();
+    let required_space = 30000000 - available_space;
+    let mut smallest_dir = ("", u64::MAX);
+    for (path, val) in filesystem.iter() {
+        if *val >= required_space && *val < smallest_dir.1 {
+            smallest_dir = (path, *val);
+        }
+    }
+
+    println!("Part2: {:?}", smallest_dir);
 
     Ok(sum)
 }
